@@ -13,8 +13,6 @@ class Piezo {
     void populate(int _pin, int _led, int _MIDINote);
     void readInput();
     int returnValue();
-    void channelForward();
-    void channelBackward();
 };
 
 Piezo::Piezo() {
@@ -47,20 +45,6 @@ void Piezo::readInput() {
     analogWrite(led, brightnessValue);
   }
 }  
-
-void Piezo::channelForward() {
-  channel++;
-  if (channel > 4) {
-    channel = 1;
-  }
-}
-
-void Piezo::channelBackward() {
-  channel--;
-  if (channel < 1) {
-    channel = 4;
-  }
-}
 
 int Piezo::returnValue() {
   return value;
