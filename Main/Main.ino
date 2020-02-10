@@ -1,9 +1,9 @@
 #include "Piezo.h"
+#include "LightSensor.h"
 // jj
 
 Piezo piezos[8];
-LightSensor ldrLeft;
-LightSensor ldrRight;
+LightSensor ldr;
 int oldChannel;
 int channel;
 int lightValue;
@@ -11,12 +11,11 @@ int lightValue;
 void setup() {
   Serial.begin(115200);
   while (!Serial && millis() < 2500) /* wait for serial monitor */ ;
-  piezos[0].populate(A13, 30, 36);
-  piezos[1].populate(A12, 29, 38);
-  piezos[2].populate(A16, 37, 40);
-  piezos[3].populate(A15, 38, 41);
-  ldrLeft.populate(A14);
-  ldrRight.populate(A17);
+  piezos[0].populate(A15, 35, 36); // COORECT 1st one
+  piezos[1].populate(A19, 36, 38); 
+  piezos[2].populate(A14, 30, 40); //CORRECT 3rd one
+  piezos[3].populate(A18, 29, 41);
+  ldr.populate(A12); // CORRECT Light Sensor
 }
 
 
@@ -25,13 +24,11 @@ void loop() {
     piezos[i].readInput();
   }
   
-  ldrLeft.readInput();
-  ldrLeft.sendMIDIData();
-  ldrRight.readInput();
-  ldrRight.sendMIDIData();
+  ldr.readInput();
+  ldr.sendMIDIData();
 
   //Potentiometer to switch channels
-  channel = map(analogRead(A20), 0, 1023, 1, 4);
+  channel = map(analogRead(A13), 0, 1023, 1, 4); // CORRECT potentiometer
   if (channel != oldChannel) {
     for (int i=0; i<4; i++) {
       piezos[i].channel = channel;

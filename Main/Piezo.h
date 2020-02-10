@@ -41,7 +41,7 @@ void Piezo::readInput() {
     noteIsOn = false;
   }
   if (brightnessValue > 0) {
-    brightnessValue -= 10;
+    brightnessValue -= 3;
     analogWrite(led, brightnessValue);
   }
 }  
